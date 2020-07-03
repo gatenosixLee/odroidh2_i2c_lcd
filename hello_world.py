@@ -21,13 +21,13 @@ lcd = lcd.lcd()
 # get hostname
 #hostname=str(os.popen('hostname').readline())[:-1]
 
-lcd.display_string("####################",1)
-lcd.display_string("WELCOME TO ODROID H2",2)
-lcd.display_string("LCD SERVICE STARTED.",3)
-lcd.display_string("####################",4)
+# lcd.display_string("####################",1)
+# lcd.display_string("WELCOME GATENO6",1)
+# lcd.display_string("LCD STARTED",2)
+# # lcd.display_string("####################",4)
 
 
-sleep(10)
+# sleep(10)
 
 
 
@@ -47,30 +47,30 @@ while True:
     hddstr="WAKE"
 
   # line 1 print (hddstate, friendly name)
-  lcd.display_string("HDD:"+hddstr.rjust(5)+"  ODROID-H2", 1)
+#   lcd.display_string("HDD:"+hddstr.rjust(5)+"  ODROID-H2", 1)
 
   # line 2 print (cpu, memory)
   # use psutil to get CPU usage and Memory Usage
-  lcd.display_string("CPU:"+str(ps.cpu_percent()).rjust(4)+"%"+"  "+"MEM:"+str(ps.virtual_memory()[2]).rjust(4)+"%", 2)
+  lcd.display_string("CPU:"+str(int(ps.cpu_percent())).rjust(2)+"%"+"  "+"MEM:"+str(int(ps.virtual_memory()[2])).rjust(2)+"%", 1)
 
   # get network speed for 1sec
-  tx1 = get_bytes('tx')
-  rx1 = get_bytes('rx')
-  sleep(1)
-  tx2 = get_bytes('tx')
-  rx2 = get_bytes('rx')
-  tx_speed = (tx2 - tx1)/1000000.0
-  rx_speed = (rx2 - rx1)/1000000.0
+#   tx1 = get_bytes('tx')
+#   rx1 = get_bytes('rx') 
+#   sleep(1)
+#   tx2 = get_bytes('tx')
+#   rx2 = get_bytes('rx')
+#   tx_speed = (tx2 - tx1)/1000000.0
+#   rx_speed = (rx2 - rx1)/1000000.0
 
   # line 3 print (network speed)
   # bps -> mpbs (*8)
-  lcd.display_string("TX: "+str(round(tx_speed*8)).zfill(3)+" RX: "+str(round(rx_speed*8)).zfill(3)+" Mbps", 3)
+#   lcd.display_string("TX: "+str(round(tx_speed*8)).zfill(3)+" RX: "+str(round(rx_speed*8)).zfill(3)+" Mbps", 3)
 
   # line 4 print (cputemp, date, time)
   # use lm-sensors to get cpu temp / get time data from python internal method
   dateString = datetime.now().strftime('%m-%d')
   timeString = datetime.now().strftime('%H:%M')
-  lcd.display_string("TEMP:"+os.popen('sensors | grep "temp1:" | cut -d+ -f2 | cut -c1-2').read()[:-1]+"C "+dateString+" "+timeString, 4)
+  lcd.display_string("TEMP:"+os.popen('sensors | grep "temp1:" | head -1 | cut -d+ -f2 | cut -c1-2').read()[:-1]+"C" + "   " + timeString, 2)
 
   # line 4 print (cputemp, uptime)
   # use /proc/uptime and python divmod method
@@ -82,4 +82,4 @@ while True:
   #lcd.display_string("TEMP:"+os.popen('sensors | grep "temp1:" | cut -d+ -f2 | cut -c1-2').read()[:-1]+"C "+uptimeString.zfill(3), 4)
 
 
-  # sleep(1)
+  sleep(1)

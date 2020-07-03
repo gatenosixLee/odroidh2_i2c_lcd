@@ -8,10 +8,10 @@ from datetime import datetime
 
 lcd = lcd.lcd()
 
-lcd.display_string("####################",1)
-lcd.display_string("STOP ODROIDLCD...",2)
-lcd.display_string("SYSTEM SHUTDOWN...",3)
-lcd.display_string("####################",4)
+# lcd.display_string("####################",1)
+lcd.display_string("STOP LCD...",1)
+lcd.display_string("SHUTDOWN...",2)
+# lcd.display_string("####################",4)
 
 sleep(5)
 
